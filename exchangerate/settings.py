@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "exchangerate.rates",
 ]
 
 MIDDLEWARE = [
@@ -115,3 +116,38 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+
+ALLOWED_CURRENCIES = [
+    "usd",
+    "jpy",
+    "bgn",
+    "czk",
+    "dkk",
+    "eek",
+    "gbp",
+    "huf",
+    "pln",
+    "ron",
+    "sek",
+    "chf",
+    "isk",
+    "nok",
+    "hrk",
+    "rub",
+    "try",
+    "aud",
+    "brl",
+    "cad",
+    "cny",
+    "hkd",
+    "idr",
+    "inr",
+    "krw",
+    "mxn",
+    "myr",
+    "nzd",
+    "php",
+    "sgd",
+    "thb",
+    "zar",
+]
