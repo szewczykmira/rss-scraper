@@ -30,6 +30,7 @@ ptyprocess==0.6.0         # via pexpect
 py==1.8.1                 # via pytest
 pygments==2.5.2           # via ipython
 pyparsing==2.4.6          # via packaging
+pytest-django==3.7.0
 pytest==5.3.2
 pyyaml==5.2               # via aspy.yaml, pre-commit
 six==1.13.0               # via cfgv, packaging, pip-tools, pre-commit, traitlets
