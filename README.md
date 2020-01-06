@@ -26,7 +26,18 @@ Before installing this project, please make sure that you have `python 3.7` inst
 7. Prepare the database
 `$ ./manage.py migrate`
 
+ 8. This project requires redis.
+ `$ docker run -d -p 6379:6379 redis`
+
 
 ## Development
 1. Install project with steps from `Installation`
 2. Enable pre-commit hooks `$ pre-commit install`
+
+
+## Running application
+1. Follow steps from installation.
+2. Run celery broker
+`$ celery -A exchangerate worker -l info`
+3. Run application
+`$ ./manage.py runserver`

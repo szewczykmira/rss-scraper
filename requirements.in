@@ -1,3 +1,5 @@
+celery
 django
 feedparser
 psycopg2
+redis
