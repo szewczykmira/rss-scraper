@@ -17,9 +17,15 @@ def get_data_from_rss_in_given_currency(currency: str) -> "FeedParserDict":
     return feed[0]
 
 
+def validate_data(entry: "FeedParserDict"):
+    if entry.cb_exchangerate is None or entry.updated is None:
+        raise AttributeError("Feed does not contain required data")
+
+
 def parse_data_from_entry(entry: "FeedParserDict") -> dict:
     """ Parse data from feed so that they could be processed in code."""
-    description = entry.title
+    validate_data(entry)
+    description = entry.title or ""
     currency = entry.cb_targetcurrency.upper()
     exchange_rate, _ = entry.cb_exchangerate.split()
     update_date = datetime.fromisoformat(entry.updated)
