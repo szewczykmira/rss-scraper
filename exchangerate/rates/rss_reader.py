@@ -29,3 +29,9 @@ def parse_data_from_entry(entry: "FeedParserDict") -> dict:
         "exchange_rate": Decimal(exchange_rate),
         "parser_update_date": update_date,
     }
+
+
+def get_data_for_currency(currency: str) -> dict:
+    """ Fetch data from RSS and return them parsed."""
+    feed_info = get_data_from_rss_in_given_currency(currency)
+    return parse_data_from_entry(feed_info)
