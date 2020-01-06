@@ -38,6 +38,6 @@ Before installing this project, please make sure that you have `python 3.7` inst
 ## Running application
 1. Follow steps from installation.
 2. Run celery broker
-`$ celery -A exchangerate worker -l info`
+`$ celery -A exchangerate worker -B -l info`
 3. Run application
 `$ ./manage.py runserver`

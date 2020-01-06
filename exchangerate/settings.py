@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import ast
 import os
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -153,3 +155,10 @@ ALLOWED_CURRENCIES = [
 ]
 
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
+CELERY_TIMEZONE = "Europe/Warsaw"
+CELERY_BEAT_SCHEDULE = {
+    "update-rates-every-day": {
+        "task": "update-exchange-rates",
+        "schedule": crontab(minute=0, hour=1),
+    }
+}
