@@ -1,7 +1,12 @@
+import logging
+
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Rate
 from .rss_reader import get_data_for_currency
+
+logger = logging.getLogger(__name__)
 
 
 def update_currency_data_from_rss(currency: str, commit: bool = True) -> Rate:
@@ -25,3 +30,23 @@ def update_currency_data_from_rss(currency: str, commit: bool = True) -> Rate:
     if commit:
         current_rate.save()
     return current_rate
+
+
+def update_all_currencies():
+    """ Loop through all allowed currencies to update their rates."""
+    rates_to_update = []
+    rates_to_create = []
+    for currency in settings.ALLOWED_CURRENCIES:
+        try:
+            rate = update_currency_data_from_rss(currency, commit=False)
+            if rate.id is None:
+                rates_to_create.append(rate)
+            else:
+                rates_to_update.append(rate)
+        except AttributeError as e:
+            logger.error(str(e))
+
+    Rate.objects.bulk_create(rates_to_create)
+    Rate.objects.bulk_update(
+        rates_to_update, fields=["exchange_rate", "parser_update_date", "description"]
+    )

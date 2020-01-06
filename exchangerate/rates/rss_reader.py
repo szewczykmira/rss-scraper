@@ -1,11 +1,8 @@
 from datetime import datetime
 from decimal import Decimal
-from typing import TYPE_CHECKING
 
 import feedparser
-
-if TYPE_CHECKING:
-    from feedparser import FeedParserDict
+from feedparser import FeedParserDict
 
 FEED_URL = "https://www.ecb.europa.eu/rss/fxref-%s.html"
 
@@ -14,7 +11,7 @@ def get_data_from_rss_in_given_currency(currency: str) -> "FeedParserDict":
     """ Return all data for specified currency from RSS."""
     url = FEED_URL % currency
     feed = feedparser.parse(url)
-    return feed[0]
+    return feed.entries[0]
 
 
 def validate_data(entry: "FeedParserDict"):
